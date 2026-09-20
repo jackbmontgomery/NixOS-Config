@@ -1,13 +1,11 @@
-# users.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
-    users.users.poligle = 
+    users.users.jbm = 
     {
         isNormalUser = true;
-        description = "Pol";
+        description = "JBM";
         shell = pkgs.zsh;
-        extraGroups = [ "wheel" "networkmanager" "video" "input" "docker" "wireshark" ];
+        extraGroups = [ "wheel" "networkmanager" "video" "input" ];
         packages = with pkgs; 
         [
             tree

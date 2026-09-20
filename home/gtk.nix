@@ -1,5 +1,3 @@
-# gtk.nix by poligle
-
 { config, pkgs, ... }:
 {
     gtk =

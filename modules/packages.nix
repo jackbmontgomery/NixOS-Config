@@ -1,5 +1,3 @@
-# packages.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     environment.systemPackages = with pkgs; 
@@ -15,6 +13,7 @@
         playerctl
         trash-cli
         sound-theme-freedesktop
+        ripgrep
     ];
 
     nixpkgs.config.allowUnfree = true;

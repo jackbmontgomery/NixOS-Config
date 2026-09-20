@@ -1,5 +1,3 @@
-# zen.nix by poligle
-
 { config, lib, pkgs, inputs, ... }:
 {
     imports = [ inputs.zen-browser.homeModules.beta ];

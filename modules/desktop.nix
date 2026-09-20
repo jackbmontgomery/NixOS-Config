@@ -1,5 +1,3 @@
-# desktop.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     programs.thunar = 
@@ -11,7 +9,4 @@
             thunar-volman
         ];
     };
-    
-    services.gvfs.enable = true;
-    services.tumbler.enable = true;
 }

@@ -1,5 +1,3 @@
-# greetd.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     services.greetd = 

@@ -1,11 +1,9 @@
-# stylix.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     stylix = 
     {
         enable = true;
-        image = ../wallpapers/night.jpg;
+        image = ../wallpapers/space.jpg;
         polarity = "dark"; 
 
         cursor = 
@@ -34,10 +32,10 @@
             };
             sizes = 
             {
-                terminal = 11;
-                applications = 11;
-                desktop = 10;
-                popups = 10;
+                terminal = 14;
+                applications = 14;
+                desktop = 14;
+                popups = 14;
             };
         };
 

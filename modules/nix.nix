@@ -1,4 +1,3 @@
-# nix.nix by poligle
 { config, lib, pkgs, ... }:
 {
     nix = 
@@ -12,6 +11,5 @@
             options = "--delete-older-than 7d";
         };
     };
-    
     systemd.timers.nix-gc.timerConfig.Persistent = true;
 }

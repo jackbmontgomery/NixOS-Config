@@ -1,5 +1,3 @@
-# desktop-entries.nix by poligle
-
 { config, pkgs, lib, ... }:
 let
     hidden = name:
@@ -24,7 +22,6 @@ in
         "applications/xdg-desktop-portal-gtk.desktop"           = hidden "Portal";
         "applications/nixos-manual.desktop"                     = hidden "NixOS Manual";
         "applications/uuctl.desktop"                            = hidden "uuctl";
-        "applications/kitty.desktop"                            = hidden "kitty";
         "applications/nvim.desktop"                             = hidden "Neovim wrapper";
         "applications/nm-applet.desktop"                        = hidden "NetworkManager Applet";
         "applications/nm-connection-editor.desktop"             = hidden "Advanced Network Configuration";
@@ -47,7 +44,7 @@ in
         "applications/kvantummanager.desktop"                   = hidden "Kvantum Manager";
         "applications/qt5ct.desktop"                            = hidden "Qt5 Settings";
         "applications/qt6ct.desktop"                            = hidden "Qt6 Settings";
-    
+
         # KiCad
         "applications/org.kicad.bitmap2component.desktop"       = hidden "KiCad Bitmap2Component";
         "applications/org.kicad.eeschema.desktop"               = hidden "KiCad Eeschema";

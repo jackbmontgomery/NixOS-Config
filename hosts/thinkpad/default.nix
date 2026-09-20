@@ -1,5 +1,3 @@
-# default.nix by poligle (thinkpad)
-
 { config, lib, pkgs, ... }:
 {
     imports = 
@@ -19,8 +17,6 @@
         ../../modules/nix.nix
         ../../modules/plymouth.nix
         ../../modules/stylix.nix
-        ../../modules/virtualisation.nix
-        ../../modules/wireshark.nix
         ../../modules/direnv.nix
     ];
     programs.zsh.enable = true;

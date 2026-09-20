@@ -1,5 +1,3 @@
-# vscode.nix by poligle
-
 { pkgs, ... }:
 {
     programs.vscode = 

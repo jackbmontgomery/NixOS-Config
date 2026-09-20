@@ -1,12 +1,9 @@
-# plymouth.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
   boot = 
   {
     plymouth.enable = true;
 
-    # Silent boot
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = 

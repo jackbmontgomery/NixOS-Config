@@ -1,5 +1,3 @@
-# direnv.nix by poligle
-
 { pkgs, ... }:
 
 {

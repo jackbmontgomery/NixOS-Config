@@ -1,5 +1,3 @@
-# python.nix by poligle
-
 { pkgs, ... }:
 
 let

@@ -1,5 +1,3 @@
-# nvim.nix by poligle
-
 { config, pkgs, ... }:
 {
     programs.neovim = 
@@ -18,7 +16,7 @@
             nil
             lua-language-server
             pyright
-            nixfmt-rfc-style
+            nixfmt
             stylua
         ];
 

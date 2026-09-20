@@ -1,7 +1,5 @@
-# flake.nix by poligle
-
 {
-	description = "NixOS Config for poligle@thinkpad";
+	description = "NixOS Config";
 
 	inputs = 
 	{
@@ -41,7 +39,7 @@
 					home-manager.useUserPackages = true;
 
                     home-manager.extraSpecialArgs = { inherit inputs; };
-					home-manager.users.poligle = ./home.nix;
+					home-manager.users.jbm = ./home.nix;
 				}
 			];
 		};

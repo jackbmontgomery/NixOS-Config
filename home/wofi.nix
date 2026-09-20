@@ -1,5 +1,3 @@
-# wofi.nix by poligle
-
 { config, pkgs, ... }:
 {
     stylix.targets.wofi.enable = false;

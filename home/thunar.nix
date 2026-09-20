@@ -1,5 +1,3 @@
-# thunar.nix by poligle
-
 { config, pkgs, ... }:
 {
     xdg.dataFile."xfce4/helpers/kitty.desktop".text = ''

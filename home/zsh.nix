@@ -1,61 +1,34 @@
-# zsh.nix by poligle
-
 { config, pkgs, ... }:
 {
     programs.zsh = 
     {
         enable = true;
         enableCompletion = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
 
         oh-my-zsh = 
         {
             enable = true;
-            theme = ""; 
+            theme = "bira"; 
             plugins = 
             [
                 "git"
                 "sudo"
+                "timer"
             ];
         };
-
-        plugins = 
-        [
-            {
-                name = "powerlevel10k";
-                src = pkgs.zsh-powerlevel10k;
-                file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-            }
-            {
-                name = "zsh-autosuggestions";
-                src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
-            }
-            {
-                name = "zsh-syntax-highlighting";
-                src = "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
-            }
-        ];
-
-        initContent = ''
-            if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-                source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-            fi
-            [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        '';
 
         shellAliases = 
         {
             trash = "trash-put";
-            ".." = "cd ..";
-            "..." = "cd ../..";
-            ll = "ls -lah";
-            la = "ls -A";
 
             # NixOS
-            nrebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#thinkpad";
-            nupdate = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#thinkpad";
-            ncheck = "cd ~/nixos-config && nix flake check";
+            nrebuild = "sudo nixos-rebuild switch --flake ~/NixOS-Config#thinkpad";
+            nupdate = "cd ~/NixOS-Config && nix flake update && sudo nixos-rebuild switch --flake ~/NixOS-Config#thinkpad";
+            ncheck = "cd ~/NixOS-Config && nix flake check";
             ngc = "sudo nix-collect-garbage --delete-older-than 7d";
-            
+
             gs = "git status";
             ga = "git add .";
             gc = "git commit -m";

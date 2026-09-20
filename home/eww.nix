@@ -1,5 +1,3 @@
-# eww.nix by poligle
-
 { config, pkgs, lib, ... }:
 
 let
@@ -33,9 +31,9 @@ let
 
       rx_bytes_initial=$(cat "/sys/class/net/$network_interface/statistics/rx_bytes")
       tx_bytes_initial=$(cat "/sys/class/net/$network_interface/statistics/tx_bytes")
-      
+
       sleep "$SAMPLING_INTERVAL_SECONDS"
-      
+
       rx_bytes_final=$(cat "/sys/class/net/$network_interface/statistics/rx_bytes")
       tx_bytes_final=$(cat "/sys/class/net/$network_interface/statistics/tx_bytes")
 

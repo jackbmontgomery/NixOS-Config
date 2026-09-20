@@ -1,5 +1,3 @@
-# audio.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     services.pulseaudio.enable = false;

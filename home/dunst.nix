@@ -1,5 +1,3 @@
-# dunst.nix by poligle
-
 { config, pkgs, lib, ... }: 
 {
     services.dunst =

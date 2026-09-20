@@ -1,5 +1,3 @@
-# hardware.nix by poligle
-
 { config, lib, pkgs, ... }:
 {
     services.libinput.enable = true;
