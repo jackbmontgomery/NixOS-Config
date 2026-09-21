@@ -1,13 +1,16 @@
-{ config, lib, pkgs, ... }:
 {
-  boot = 
-  {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  boot = {
     plymouth.enable = true;
 
     consoleLogLevel = 3;
     initrd.verbose = false;
-    kernelParams = 
-    [
+    kernelParams = [
       "quiet"
       "splash"
       "loglevel=3"

@@ -1,8 +1,17 @@
-{ config, lib, pkgs, ... }:
 {
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.systemd-boot.configurationLimit = 10;
-    boot.supportedFilesystems = [ "exfat" "ext4" "vfat" ];
-    boot.initrd.systemd.enable = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.supportedFilesystems = [
+    "exfat"
+    "ext4"
+    "vfat"
+  ];
+  boot.initrd.systemd.enable = true;
 }

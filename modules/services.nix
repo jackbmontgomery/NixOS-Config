@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
 {
-    services.openssh.enable = true;
-    services.udisks2.enable = true;
-    services.gvfs.enable = true; 
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  services.openssh.enable = true;
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
 }
