@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   stylix.targets.hyprpaper.enable = true;
 
   wayland.windowManager.hyprland = {
@@ -12,112 +11,111 @@
     package = null;
     portalPackage = null;
     configType = "lua";
-    settings =
-      let
-        lua = lib.generators.mkLuaInline;
-        bind = key: action: {
-          _args = [
-            key
-            (lua action)
-          ];
-        };
-        bindo = key: action: opts: {
-          _args = [
-            key
-            (lua action)
-            (lua opts)
-          ];
-        };
-        exec = cmd: ''hl.dsp.exec_cmd("${cmd}")'';
-        ws = n: ''hl.dsp.focus({ workspace = "${n}" })'';
-        mvws = n: ''hl.dsp.window.move({ workspace = "${n}" })'';
-      in
-      {
-        bind = [
-          # Apps
-          (bind "SUPER + Return" (exec "kitty"))
-          (bind "SUPER + Space" (exec "wofi-open"))
-          (bind "SUPER + E" (exec "thunar"))
-          (bind "SUPER + B" (exec "zen-beta"))
-          (bind "SUPER + N" (exec "obsidian"))
-          (bind "SUPER + C" (exec "code"))
-          (bind "SUPER + S" (exec "spotify"))
-          (bind "SUPER + A" (exec "aseprite"))
-          (bind "SUPER + H" (exec "hyprpicker -a"))
-          (bind "SUPER + ALT + L" (exec "lock-screen"))
-
-          # Window management
-          (bind "SUPER + Q" "hl.dsp.window.close()")
-          (bind "SUPER + V" ''hl.dsp.window.float({ action = "toggle" })'')
-          (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
-          (bind "SUPER + SHIFT + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
-
-          # Move focus
-          (bind "SUPER + left" ''hl.dsp.focus({ direction = "left" })'')
-          (bind "SUPER + right" ''hl.dsp.focus({ direction = "right" })'')
-          (bind "SUPER + up" ''hl.dsp.focus({ direction = "up" })'')
-          (bind "SUPER + down" ''hl.dsp.focus({ direction = "down" })'')
-
-          # Special workspace
-          (bind "SUPER + Escape" "hl.dsp.workspace.toggle_special()")
-          (bind "SUPER + Control_L" ''hl.dsp.window.move({ workspace = "special" })'')
-
-          # Workspaces
-          (bind "SUPER + J" (ws "1"))
-          (bind "SUPER + K" (ws "2"))
-          (bind "SUPER + L" (ws "3"))
-          # (bind "SUPER + 4" (ws "4"))
-          # (bind "SUPER + 5" (ws "5"))
-          # (bind "SUPER + 6" (ws "6"))
-          # (bind "SUPER + 7" (ws "7"))
-          # (bind "SUPER + 8" (ws "8"))
-          # (bind "SUPER + 9" (ws "9"))
-          # (bind "SUPER + 0" (ws "10"))
-          (bind "SUPER + Tab" ''hl.dsp.focus({ workspace = "e+1" })'')
-
-          # Move window to workspace
-          (bind "SUPER + SHIFT + J" (mvws "1"))
-          (bind "SUPER + SHIFT + K" (mvws "2"))
-          (bind "SUPER + SHIFT + L" (mvws "3"))
-          # (bind "SUPER + SHIFT + 4" (mvws "4"))
-          # (bind "SUPER + SHIFT + 5" (mvws "5"))
-          # (bind "SUPER + SHIFT + 6" (mvws "6"))
-          # (bind "SUPER + SHIFT + 7" (mvws "7"))
-          # (bind "SUPER + SHIFT + 8" (mvws "8"))
-          # (bind "SUPER + SHIFT + 9" (mvws "9"))
-          # (bind "SUPER + SHIFT + 0" (mvws "10"))
-
-          # Volume
-          (bindo "XF86AudioRaiseVolume" (exec "osd-volume up") "{ locked = true, repeating = true }")
-          (bindo "XF86AudioLowerVolume" (exec "osd-volume down") "{ locked = true, repeating = true }")
-          (bindo "XF86AudioMute" (exec "osd-volume mute") "{ locked = true }")
-          (bindo "XF86AudioMicMute"
-            (exec "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; mic-led-sync'")
-            "{ locked = true }"
-          )
-
-          # Brightness
-          (bindo "XF86MonBrightnessUp" (exec "osd-brightness up") "{ locked = true, repeating = true }")
-          (bindo "XF86MonBrightnessDown" (exec "osd-brightness down") "{ locked = true, repeating = true }")
-
-          # Multimedia keys
-          (bindo "PRINT" (exec "hyprshot -m output --clipboard-only") "{ locked = true }")
-          (bindo "XF86SelectiveScreenshot" (exec "hyprshot -m region --clipboard-only") "{ locked = true }")
-
-          (bindo "XF86AudioNext" (exec "playerctl next") "{ locked = true }")
-          (bindo "XF86AudioPause" (exec "playerctl play-pause") "{ locked = true }")
-          (bindo "XF86AudioPlay" (exec "playerctl play-pause") "{ locked = true }")
-          (bindo "XF86AudioPrev" (exec "playerctl previous") "{ locked = true }")
-
-          # Switch workspaces with mouse side buttons
-          (bind "mouse:275" ''hl.dsp.focus({ workspace = "e-1" })'')
-          (bind "mouse:276" ''hl.dsp.focus({ workspace = "e+1" })'')
-
-          # Move windows with mouse drag
-          (bindo "SUPER + mouse:272" "hl.dsp.window.drag()" "{ drag = true }")
-          (bindo "mouse:274" "hl.dsp.window.drag()" "{ drag = true }")
+    settings = let
+      lua = lib.generators.mkLuaInline;
+      bind = key: action: {
+        _args = [
+          key
+          (lua action)
         ];
       };
+      bindo = key: action: opts: {
+        _args = [
+          key
+          (lua action)
+          (lua opts)
+        ];
+      };
+      exec = cmd: ''hl.dsp.exec_cmd("${cmd}")'';
+      ws = n: ''hl.dsp.focus({ workspace = "${n}" })'';
+      mvws = n: ''hl.dsp.window.move({ workspace = "${n}" })'';
+    in {
+      bind = [
+        # Apps
+        (bind "SUPER + Return" (exec "kitty"))
+        (bind "SUPER + Space" (exec "wofi-open"))
+        (bind "SUPER + E" (exec "thunar"))
+        (bind "SUPER + B" (exec "zen-beta"))
+        (bind "SUPER + N" (exec "obsidian"))
+        (bind "SUPER + C" (exec "code"))
+        (bind "SUPER + S" (exec "spotify"))
+        (bind "SUPER + A" (exec "aseprite"))
+        (bind "SUPER + H" (exec "hyprpicker -a"))
+        (bind "SUPER + ALT + L" (exec "lock-screen"))
+
+        # Window management
+        (bind "SUPER + Q" "hl.dsp.window.close()")
+        (bind "SUPER + V" ''hl.dsp.window.float({ action = "toggle" })'')
+        (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
+        (bind "SUPER + SHIFT + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
+
+        # Move focus
+        (bind "SUPER + left" ''hl.dsp.focus({ direction = "left" })'')
+        (bind "SUPER + right" ''hl.dsp.focus({ direction = "right" })'')
+        (bind "SUPER + up" ''hl.dsp.focus({ direction = "up" })'')
+        (bind "SUPER + down" ''hl.dsp.focus({ direction = "down" })'')
+
+        # Special workspace
+        (bind "SUPER + Escape" "hl.dsp.workspace.toggle_special()")
+        (bind "SUPER + Control_L" ''hl.dsp.window.move({ workspace = "special" })'')
+
+        # Workspaces
+        (bind "SUPER + J" (ws "1"))
+        (bind "SUPER + K" (ws "2"))
+        (bind "SUPER + L" (ws "3"))
+        # (bind "SUPER + 4" (ws "4"))
+        # (bind "SUPER + 5" (ws "5"))
+        # (bind "SUPER + 6" (ws "6"))
+        # (bind "SUPER + 7" (ws "7"))
+        # (bind "SUPER + 8" (ws "8"))
+        # (bind "SUPER + 9" (ws "9"))
+        # (bind "SUPER + 0" (ws "10"))
+        (bind "SUPER + Tab" ''hl.dsp.focus({ workspace = "e+1" })'')
+
+        # Move window to workspace
+        (bind "SUPER + SHIFT + J" (mvws "1"))
+        (bind "SUPER + SHIFT + K" (mvws "2"))
+        (bind "SUPER + SHIFT + L" (mvws "3"))
+        # (bind "SUPER + SHIFT + 4" (mvws "4"))
+        # (bind "SUPER + SHIFT + 5" (mvws "5"))
+        # (bind "SUPER + SHIFT + 6" (mvws "6"))
+        # (bind "SUPER + SHIFT + 7" (mvws "7"))
+        # (bind "SUPER + SHIFT + 8" (mvws "8"))
+        # (bind "SUPER + SHIFT + 9" (mvws "9"))
+        # (bind "SUPER + SHIFT + 0" (mvws "10"))
+
+        # Volume
+        (bindo "XF86AudioRaiseVolume" (exec "osd-volume up") "{ locked = true, repeating = true }")
+        (bindo "XF86AudioLowerVolume" (exec "osd-volume down") "{ locked = true, repeating = true }")
+        (bindo "XF86AudioMute" (exec "osd-volume mute") "{ locked = true }")
+        (
+          bindo "XF86AudioMicMute"
+          (exec "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; mic-led-sync'")
+          "{ locked = true }"
+        )
+
+        # Brightness
+        (bindo "XF86MonBrightnessUp" (exec "osd-brightness up") "{ locked = true, repeating = true }")
+        (bindo "XF86MonBrightnessDown" (exec "osd-brightness down") "{ locked = true, repeating = true }")
+
+        # Multimedia keys
+        (bindo "PRINT" (exec "hyprshot -m output --clipboard-only") "{ locked = true }")
+        (bindo "XF86SelectiveScreenshot" (exec "hyprshot -m region --clipboard-only") "{ locked = true }")
+
+        (bindo "XF86AudioNext" (exec "playerctl next") "{ locked = true }")
+        (bindo "XF86AudioPause" (exec "playerctl play-pause") "{ locked = true }")
+        (bindo "XF86AudioPlay" (exec "playerctl play-pause") "{ locked = true }")
+        (bindo "XF86AudioPrev" (exec "playerctl previous") "{ locked = true }")
+
+        # Switch workspaces with mouse side buttons
+        (bind "mouse:275" ''hl.dsp.focus({ workspace = "e-1" })'')
+        (bind "mouse:276" ''hl.dsp.focus({ workspace = "e+1" })'')
+
+        # Move windows with mouse drag
+        (bindo "SUPER + mouse:272" "hl.dsp.window.drag()" "{ drag = true }")
+        (bindo "mouse:274" "hl.dsp.window.drag()" "{ drag = true }")
+      ];
+    };
 
     extraConfig = ''
       hl.env("QT_QPA_PLATFORM", "wayland")
@@ -150,8 +148,6 @@
           shadow = { enabled = true, range = 15, color = "rgba(19191966)" },
           blur = { enabled = true, size = 3, passes = 2, brightness = 0.6, contrast = 1.0, noise = 0, xray = false, popups = false }
       },
-
-      dwindle = { preserve_split = true },
 
       misc = { force_default_wallpaper = 0, disable_hyprland_logo = true },
       input = { kb_layout = "us", kb_variant = "", kb_model = "thinkpad", follow_mouse = 1, sensitivity = 0, touchpad = { natural_scroll = true } }

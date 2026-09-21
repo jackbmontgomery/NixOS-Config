@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   environment.systemPackages = with pkgs; [
     wev
     wget
@@ -19,6 +18,7 @@
     sound-theme-freedesktop
     ripgrep
     gh
+    wl-clipboard
   ];
 
   nixpkgs.config.allowUnfree = true;
