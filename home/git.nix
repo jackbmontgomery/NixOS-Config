@@ -3,13 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   programs.git = {
     enable = true;
     settings = {
       user = {
-        name = "Jack Montgomery";
+        name = "jackbmontgomery";
         email = "mail@jackbmontgomery.com";
       };
       init.defaultBranch = "main";
@@ -22,7 +21,7 @@
     enable = true;
     gitCredentialHelper = {
       enable = true;
-      hosts = [ "github.com" ];
+      hosts = ["github.com"];
     };
   };
 }
