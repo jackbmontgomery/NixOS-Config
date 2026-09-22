@@ -1,16 +1,17 @@
-{ pkgs, ... }:
-
-let
-  pythonfortelecos = pkgs.python3.withPackages (
-    ps: with ps; [
-      numpy
-      scipy
-      matplotlib
-    ]
-  );
-in
 {
-  home.packages = [
-    pythonfortelecos
-  ];
+  programs.uv = {
+    enable = true;
+
+    #   https://github.com/nix-community/home-manager/pull/9507
+    #   python = {
+    #     versions = ["3.14"];
+    #     default = ["3.14"];
+    #     prune = true;
+    #   };
+    #
+    #   tool = {
+    #     packages = [];
+    #     prune = true;
+    #   };
+  };
 }

@@ -3,12 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   programs.obsidian = {
     enable = true;
 
-    vaults.notes.target = "~/Documents/Obsidian/Jack Montgomery";
+    vaults.notes.target = "/home/jbm/Documents/Obsidian/Jack Montgomery";
 
     defaultSettings.app = {
       alwaysUpdateLinks = true;

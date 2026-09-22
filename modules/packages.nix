@@ -4,23 +4,25 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    wev
-    wget
-    git
-    unzip
-    lxqt.lxqt-policykit
-    fastfetch
-    btop
-    brightnessctl
-    playerctl
-    trash-cli
-    sound-theme-freedesktop
-    ripgrep
-    gh
-    wl-clipboard
-  ];
-
+  environment = {
+    localBinInPath = true;
+    systemPackages = with pkgs; [
+      wev
+      wget
+      git
+      unzip
+      lxqt.lxqt-policykit
+      fastfetch
+      btop
+      brightnessctl
+      playerctl
+      trash-cli
+      sound-theme-freedesktop
+      ripgrep
+      wl-clipboard
+      vim
+    ];
+  };
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [

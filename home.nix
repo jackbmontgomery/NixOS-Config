@@ -4,11 +4,9 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     ./home/gtk.nix
-    ./home/nvim.nix
     ./home/zsh.nix
     ./home/thunar.nix
     ./home/hyprland.nix
@@ -26,6 +24,7 @@
     ./home/vscode.nix
     ./home/git.nix
     ./home/obsidian.nix
+    ./home/nvim
   ];
 
   home.username = "jbm";
