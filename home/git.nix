@@ -9,7 +9,7 @@
     settings = {
       user = {
         name = "jackbmontgomery";
-        email = "mail@jackbmontgomery.com";
+        email = "jack.b.montgomery0@gmail.com";
       };
       init.defaultBranch = "main";
       core.editor = "nvim";
