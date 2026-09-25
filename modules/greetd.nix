@@ -3,8 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
+  stylix.targets.regreet.enable = false;
   services.greetd = {
     enable = true;
     settings = {

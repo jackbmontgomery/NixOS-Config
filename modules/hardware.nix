@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   services.libinput.enable = true;
   services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
-  services.fprintd.enable = true;
-  security.pam.services.hyprlock.fprintAuth = true;
   zramSwap.enable = true;
   hardware.graphics.enable = true;
 

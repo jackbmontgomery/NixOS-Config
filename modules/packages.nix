@@ -21,6 +21,7 @@
       ripgrep
       wl-clipboard
       vim
+      uv
     ];
   };
   nixpkgs.config.allowUnfree = true;

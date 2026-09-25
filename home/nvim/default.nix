@@ -28,6 +28,9 @@
         expandtab = true;
         showmode = false;
         breakindent = true;
+        conceallevel = 1;
+        foldlevel = 99;
+        foldenable = true;
       };
       autopairs.nvim-autopairs.enable = true;
       diagnostics = {

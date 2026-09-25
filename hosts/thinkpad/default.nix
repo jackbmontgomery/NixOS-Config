@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/boot.nix
@@ -22,8 +21,8 @@
     ../../modules/plymouth.nix
     ../../modules/stylix.nix
     ../../modules/direnv.nix
+    ../../modules/programs.nix
   ];
-  programs.zsh.enable = true;
 
   # Host-specific
   networking.hostName = "thinkpad";

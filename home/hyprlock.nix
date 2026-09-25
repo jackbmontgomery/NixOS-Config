@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -31,11 +34,6 @@
         position = "0, -20";
         halign = "center";
         valign = "center";
-      };
-      auth = {
-        "fingerprint:enabled" = true;
-        "fingerprint:ready_message" = "Scan your fingerprint to unlock";
-        "fingerprint:present_message" = "Scanning...";
       };
     };
   };

@@ -7,20 +7,25 @@
   programs.obsidian = {
     enable = true;
 
-    vaults.notes.target = "/home/jbm/Documents/Obsidian/Jack Montgomery";
+    defaultSettings = {
+      app = {
+        alwaysUpdateLinks = true;
+        spellcheck = true;
+      };
 
-    defaultSettings.app = {
-      alwaysUpdateLinks = true;
-      spellcheck = true;
+      corePlugins = [
+        "backlink"
+        "bookmarks"
+        "daily-notes"
+        "file-explorer"
+        "global-search"
+        "templates"
+      ];
     };
 
-    defaultSettings.corePlugins = [
-      "backlink"
-      "bookmarks"
-      "daily-notes"
-      "file-explorer"
-      "global-search"
-      "templates"
-    ];
+    vaults."Jack Montgomery" = {
+      enable = true;
+      target = "Documents/Obsidian/Jack Montgomery";
+    };
   };
 }
