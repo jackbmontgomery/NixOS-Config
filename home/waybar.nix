@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   stylix.targets.waybar.enable = false;
   programs.waybar = {
     enable = true;
@@ -30,7 +29,7 @@
           "custom/network"
           "custom/bluetooth"
         ];
-        modules-center = [ "hyprland/workspaces" ];
+        modules-center = ["hyprland/workspaces"];
         modules-right = [
           "wireplumber"
           "custom/microphone"
@@ -48,7 +47,7 @@
             default = "●";
           };
           persistent-workspaces = {
-            "*" = 3;
+            "*" = 4;
           };
         };
 
@@ -170,7 +169,7 @@
               font-size: 16px;
               min-height: 0;
           }
-          window#waybar 
+          window#waybar
           {
               background: alpha(@surface0, 0.75);
               color: @text;
@@ -189,7 +188,7 @@
       #battery,
       #custom-lock,
       #custom-power,
-      #window 
+      #window
           {
               background-color: alpha(@surface0, 0.75);
               padding: 0.22rem 0.4rem;
@@ -200,7 +199,7 @@
               box-shadow: none;
               border: none;
           }
-      #custom-applauncher 
+      #custom-applauncher
           {
               color: @color1;
               border-radius: 0.5rem;
@@ -208,59 +207,59 @@
               margin-right: 2rem;
               padding: 0.38rem 0.7rem;
           }
-      #window 
+      #window
           {
               color: @text;
               background: transparent;
               padding: 0.3rem 0.4rem;
           }
-      #workspaces 
+      #workspaces
           {
               border-radius: 0.5rem;
               margin-left: 1rem;
               padding: 0 0.35rem;
           }
-      #workspaces button 
+      #workspaces button
           {
               color: @surface1;
               border-radius: 0.7rem;
               padding: 0 0.35rem;
               margin: 0;
           }
-      #workspaces button label 
+      #workspaces button label
           {
               font-size: 22px;
           }
-      #workspaces button.active 
+      #workspaces button.active
           {
               color: @color1;
           }
-      #workspaces button:hover 
+      #workspaces button:hover
           {
               color: @color2;
           }
-      #clock 
+      #clock
           {
               color: @color1;
               border-radius: 0.7rem;
               padding: 0.38rem 0.8rem;
               margin-right: 1rem;
           }
-      #wireplumber 
+      #wireplumber
           {
               color: @color1;
               border-radius: 0.5rem 0 0 0.5rem;
               padding-left: 1rem;
               padding-right: 0.45rem;
           }
-      #custom-microphone 
+      #custom-microphone
           {
               color: @color1;
               border-radius: 0;
               padding-left: 0.45rem;
               padding-right: 0.45rem;
           }
-      #backlight 
+      #backlight
           {
               color: @color1;
               border-radius: 0 0.5rem 0.5rem 0;
@@ -268,35 +267,35 @@
               padding-right: 1rem;
               margin-right: 1rem;
           }
-      #cpu 
+      #cpu
           {
               color: @color1;
               border-radius: 0.5rem 0 0 0.5rem;
               padding-left: 1rem;
               padding-right: 0.45rem;
           }
-      #memory 
+      #memory
           {
               color: @color1;
               border-radius: 0;
               padding-left: 0.45rem;
               padding-right: 0.45rem;
           }
-      #custom-network 
+      #custom-network
           {
               color: @color1;
               border-radius: 0.5rem 0 0 0.5rem;
               padding-left: 1rem;
               padding-right: 0.6rem;
           }
-      #custom-bluetooth 
+      #custom-bluetooth
           {
               color: @color1;
               border-radius: 0;
               padding-left: 0.35rem;
               padding-right: 0.6rem;
           }
-      #battery 
+      #battery
           {
               color: @color1;
               border-radius: 0 0.5rem 0.5rem 0;
@@ -304,15 +303,15 @@
               padding-right: 1rem;
               margin-right: 1rem;
           }
-      #battery.charging 
+      #battery.charging
           {
               color: @color4;
           }
-      #battery.warning:not(.charging) 
+      #battery.warning:not(.charging)
           {
               color: @color3;
           }
-      #custom-lock 
+      #custom-lock
           {
               color: @color6;
               border-radius: 0.5rem;
@@ -320,7 +319,7 @@
               padding-right: 0.7rem;
               margin-right: 0.4rem;
           }
-      #custom-power 
+      #custom-power
           {
               color: @color3;
               border-radius: 0.5rem;

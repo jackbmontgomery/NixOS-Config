@@ -22,6 +22,7 @@
       wl-clipboard
       vim
       uv
+      zotero
     ];
   };
   nixpkgs.config.allowUnfree = true;

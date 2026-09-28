@@ -4,9 +4,8 @@
   pkgs,
   inputs,
   ...
-}:
-{
-  imports = [ inputs.zen-browser.homeModules.beta ];
+}: {
+  imports = [inputs.zen-browser.homeModules.beta];
 
   programs.zen-browser = {
     enable = true;
@@ -19,5 +18,5 @@
     };
   };
 
-  stylix.targets.zen-browser.profileNames = [ "default" ];
+  stylix.targets.zen-browser.profileNames = ["default"];
 }

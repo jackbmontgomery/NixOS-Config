@@ -21,7 +21,6 @@
     ./home/dunst.nix
     ./home/python.nix
     ./home/zen.nix
-    ./home/vscode.nix
     ./home/git.nix
     ./home/obsidian.nix
     ./home/nvim

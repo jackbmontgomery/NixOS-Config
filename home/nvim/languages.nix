@@ -5,10 +5,7 @@
     enableExtraDiagnostics = true;
 
     nix.enable = true;
-    markdown = {
-      enable = true;
-      format.type = ["rumdl"];
-    };
+    markdown.enable = true;
     lua.enable = true;
     python = {
       enable = true;

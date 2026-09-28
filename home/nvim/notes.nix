@@ -3,19 +3,21 @@
     todo-comments.enable = true;
     obsidian = {
       enable = true;
-
       setupOpts = {
         workspaces = [
           {
-            name = "Jack Montgomery";
-            path = "~/Documents/Obsidian/Jack Montgomery";
+            name = "Obsidian";
+            path = "~/Obsidian";
           }
         ];
         legacy_commands = false;
-
         note_id_func =
           lib.generators.mkLuaInline
-          ''require("obsidian.builtin").title_id'';
+          ''
+            function(title)
+              return title
+            end
+          '';
         templates = {
           folder = "Templates";
         };

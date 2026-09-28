@@ -12,7 +12,7 @@
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
-      size = 15;
+      size = 18;
     };
 
     fonts = {
@@ -29,10 +29,10 @@
         name = "Noto Color Emoji";
       };
       sizes = {
-        terminal = 14;
-        applications = 12;
-        desktop = 14;
-        popups = 14;
+        terminal = 16;
+        applications = 14;
+        desktop = 16;
+        popups = 16;
       };
     };
 

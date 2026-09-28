@@ -15,17 +15,23 @@
 
       corePlugins = [
         "backlink"
-        "bookmarks"
-        "daily-notes"
+        "command-palette"
         "file-explorer"
         "global-search"
+        "graph"
+        "outline"
+        "page-preview"
+        "properties"
+        "tag-pane"
         "templates"
+        "word-count"
+        "workspaces"
       ];
     };
 
-    vaults."Jack Montgomery" = {
+    vaults."Obsidian" = {
       enable = true;
-      target = "Documents/Obsidian/Jack Montgomery";
+      target = "Obsidian";
     };
   };
 }

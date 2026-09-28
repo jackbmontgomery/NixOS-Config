@@ -25,7 +25,7 @@ Hyprland (Lua).
 
 ## Structure
 
-```
+```text
 nixos-config/
 ├── flake.nix                 # Inputs (nixpkgs, home-manager, stylix) and outputs (hosts)
 ├── flake.lock                # Pinned exact versions (reproducibility)
@@ -69,7 +69,6 @@ nixos-config/
 │   ├── zen.nix               # Zen Browser
 │   ├── eww.nix               # Widgets
 │   ├── nvim.nix              # Editor
-│   ├── vscode.nix            # Editor
 │   ├── python.nix            # Python environment
 │   ├── scripts.nix           # Own scripts, packaged
 │   └── waybar-autohide.py    # Python auto-hide script for the bar

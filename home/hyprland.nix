@@ -37,10 +37,9 @@
         (bind "SUPER + E" (exec "thunar"))
         (bind "SUPER + B" (exec "zen-beta"))
         (bind "SUPER + N" (exec "obsidian"))
-        (bind "SUPER + C" (exec "code"))
-        (bind "SUPER + S" (exec "spotify"))
-        (bind "SUPER + A" (exec "aseprite"))
-        (bind "SUPER + H" (exec "hyprpicker -a"))
+
+        # (bind "SUPER + H" (exec "hyprpicker -a"))
+
         (bind "SUPER + ALT + L" (exec "lock-screen"))
 
         # Window management
@@ -55,34 +54,19 @@
         (bind "SUPER + up" ''hl.dsp.focus({ direction = "up" })'')
         (bind "SUPER + down" ''hl.dsp.focus({ direction = "down" })'')
 
-        # Special workspace
-        (bind "SUPER + Escape" "hl.dsp.workspace.toggle_special()")
-        (bind "SUPER + Control_L" ''hl.dsp.window.move({ workspace = "special" })'')
-
         # Workspaces
         (bind "SUPER + J" (ws "1"))
         (bind "SUPER + K" (ws "2"))
         (bind "SUPER + L" (ws "3"))
-        # (bind "SUPER + 4" (ws "4"))
-        # (bind "SUPER + 5" (ws "5"))
-        # (bind "SUPER + 6" (ws "6"))
-        # (bind "SUPER + 7" (ws "7"))
-        # (bind "SUPER + 8" (ws "8"))
-        # (bind "SUPER + 9" (ws "9"))
-        # (bind "SUPER + 0" (ws "10"))
+        (bind "SUPER + semicolon" (ws "4"))
+
         (bind "SUPER + Tab" ''hl.dsp.focus({ workspace = "e+1" })'')
 
         # Move window to workspace
         (bind "SUPER + SHIFT + J" (mvws "1"))
         (bind "SUPER + SHIFT + K" (mvws "2"))
         (bind "SUPER + SHIFT + L" (mvws "3"))
-        # (bind "SUPER + SHIFT + 4" (mvws "4"))
-        # (bind "SUPER + SHIFT + 5" (mvws "5"))
-        # (bind "SUPER + SHIFT + 6" (mvws "6"))
-        # (bind "SUPER + SHIFT + 7" (mvws "7"))
-        # (bind "SUPER + SHIFT + 8" (mvws "8"))
-        # (bind "SUPER + SHIFT + 9" (mvws "9"))
-        # (bind "SUPER + SHIFT + 0" (mvws "10"))
+        (bind "SUPER + SHIFT + semicolon" (mvws "4"))
 
         # Volume
         (bindo "XF86AudioRaiseVolume" (exec "osd-volume up") "{ locked = true, repeating = true }")
