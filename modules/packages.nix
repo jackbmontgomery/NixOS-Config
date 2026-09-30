@@ -18,11 +18,10 @@
       playerctl
       trash-cli
       sound-theme-freedesktop
-      ripgrep
       wl-clipboard
       vim
-      uv
-      zotero
+      btop
+      tcpdump
     ];
   };
   nixpkgs.config.allowUnfree = true;

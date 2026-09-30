@@ -32,11 +32,12 @@
     in {
       bind = [
         # Apps
-        (bind "SUPER + Return" (exec "kitty"))
-        (bind "SUPER + Space" (exec "wofi-open"))
-        (bind "SUPER + E" (exec "thunar"))
+        (bind "SUPER + T" (exec "kitty"))
         (bind "SUPER + B" (exec "zen-beta"))
         (bind "SUPER + N" (exec "obsidian"))
+        (bind "SUPER + E" (exec "thunar"))
+
+        (bind "SUPER + Space" (exec "wofi-open"))
 
         # (bind "SUPER + H" (exec "hyprpicker -a"))
 
@@ -48,6 +49,10 @@
         (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
         (bind "SUPER + SHIFT + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
 
+        # Special Workspace
+        (bind "SUPER + Return" "hl.dsp.workspace.toggle_special()")
+        (bind "SUPER + SHIFT + Return" ''hl.dsp.window.move({ workspace = "special" })'')
+
         # Move focus
         (bind "SUPER + left" ''hl.dsp.focus({ direction = "left" })'')
         (bind "SUPER + right" ''hl.dsp.focus({ direction = "right" })'')
@@ -58,7 +63,7 @@
         (bind "SUPER + J" (ws "1"))
         (bind "SUPER + K" (ws "2"))
         (bind "SUPER + L" (ws "3"))
-        (bind "SUPER + semicolon" (ws "4"))
+        # (bind "SUPER + semicolon" (ws "4"))
 
         (bind "SUPER + Tab" ''hl.dsp.focus({ workspace = "e+1" })'')
 
@@ -66,7 +71,7 @@
         (bind "SUPER + SHIFT + J" (mvws "1"))
         (bind "SUPER + SHIFT + K" (mvws "2"))
         (bind "SUPER + SHIFT + L" (mvws "3"))
-        (bind "SUPER + SHIFT + semicolon" (mvws "4"))
+        # (bind "SUPER + SHIFT + semicolon" (mvws "4"))
 
         # Volume
         (bindo "XF86AudioRaiseVolume" (exec "osd-volume up") "{ locked = true, repeating = true }")

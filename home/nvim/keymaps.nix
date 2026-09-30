@@ -46,5 +46,21 @@
       '';
       desc = "[O]bsidian new [p]erson";
     }
+    {
+      key = "<leader>or";
+      mode = "n";
+      silent = true;
+      lua = true;
+      action = ''
+        function()
+          vim.ui.input({ prompt = "Title: " }, function(title)
+            if title and title ~= "" then
+              vim.cmd("Obsidian new Papers/" .. title)
+            end
+          end)
+        end
+      '';
+      desc = "[O]bsidian new [r]esearch paper";
+    }
   ];
 }

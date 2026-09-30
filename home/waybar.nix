@@ -47,7 +47,7 @@
             default = "●";
           };
           persistent-workspaces = {
-            "*" = 4;
+            "*" = 3;
           };
         };
 

@@ -63,6 +63,7 @@
       navigation = {
         harpoon.enable = true;
       };
+      dashboard.dashboard-nvim.enable = true;
     };
   };
 }

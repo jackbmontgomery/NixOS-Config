@@ -23,12 +23,15 @@
     ./home/zen.nix
     ./home/git.nix
     ./home/obsidian.nix
+    ./home/tmux.nix
     ./home/nvim
   ];
 
-  home.username = "jbm";
-  home.homeDirectory = "/home/jbm";
-  home.stateVersion = "26.05";
+  home = {
+    username = "jbm";
+    homeDirectory = "/home/jbm";
+    stateVersion = "26.05";
+  };
   programs.home-manager.enable = true;
 
   home.packages = [
@@ -40,5 +43,9 @@
     pkgs.awww
     pkgs.hyprshot
     pkgs.hyprpicker
+    pkgs.zotero
+    pkgs.ripgrep
+    pkgs.uv
+    pkgs.speedtest-go
   ];
 }
