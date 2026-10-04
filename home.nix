@@ -47,5 +47,7 @@
     pkgs.ripgrep
     pkgs.uv
     pkgs.speedtest-go
+    pkgs.imv
+    pkgs.claude-code
   ];
 }

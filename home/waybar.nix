@@ -166,7 +166,7 @@
               border-radius: 0;
               font-family: ${config.stylix.fonts.sansSerif.name};
               font-weight: bold;
-              font-size: 16px;
+              font-size: 20px;
               min-height: 0;
           }
           window#waybar

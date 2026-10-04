@@ -45,9 +45,6 @@
 
         # Window management
         (bind "SUPER + Q" "hl.dsp.window.close()")
-        (bind "SUPER + V" ''hl.dsp.window.float({ action = "toggle" })'')
-        (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
-        (bind "SUPER + SHIFT + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
 
         # Special Workspace
         (bind "SUPER + Return" "hl.dsp.workspace.toggle_special()")
@@ -64,8 +61,6 @@
         (bind "SUPER + K" (ws "2"))
         (bind "SUPER + L" (ws "3"))
         # (bind "SUPER + semicolon" (ws "4"))
-
-        (bind "SUPER + Tab" ''hl.dsp.focus({ workspace = "e+1" })'')
 
         # Move window to workspace
         (bind "SUPER + SHIFT + J" (mvws "1"))
@@ -95,14 +90,6 @@
         (bindo "XF86AudioPause" (exec "playerctl play-pause") "{ locked = true }")
         (bindo "XF86AudioPlay" (exec "playerctl play-pause") "{ locked = true }")
         (bindo "XF86AudioPrev" (exec "playerctl previous") "{ locked = true }")
-
-        # Switch workspaces with mouse side buttons
-        (bind "mouse:275" ''hl.dsp.focus({ workspace = "e-1" })'')
-        (bind "mouse:276" ''hl.dsp.focus({ workspace = "e+1" })'')
-
-        # Move windows with mouse drag
-        (bindo "SUPER + mouse:272" "hl.dsp.window.drag()" "{ drag = true }")
-        (bindo "mouse:274" "hl.dsp.window.drag()" "{ drag = true }")
       ];
     };
 
@@ -133,11 +120,8 @@
       },
 
       misc = { force_default_wallpaper = 0, disable_hyprland_logo = true },
-      input = { kb_layout = "us", kb_variant = "", kb_model = "thinkpad", follow_mouse = 1, sensitivity = 0, touchpad = { natural_scroll = true } }
+      input = { kb_layout = "us", kb_variant = "", kb_model = "thinkpad", follow_mouse = 1, sensitivity = 0, natural_scroll = true, touchpad = { natural_scroll = true } }
       })
-
-      hl.device({ name = "tpps/2-synaptics-trackpoint", sensitivity = -0.4, scroll_method = "no_scroll" })
-      hl.device({ name = "logitech-pro-x-1", sensitivity = -0.2 })
 
       hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
       hl.curve("snappyReturn", { type = "bezier", points = { {0.4, 0.9}, {0.6, 1.0} } })

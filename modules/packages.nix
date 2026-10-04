@@ -20,7 +20,6 @@
       sound-theme-freedesktop
       wl-clipboard
       vim
-      btop
       tcpdump
     ];
   };

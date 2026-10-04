@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   wofi-open = pkgs.writeShellScriptBin "wofi-open" ''
     exec 9>"''${XDG_RUNTIME_DIR:-/tmp}/wofi.lock"
     if ! ${pkgs.util-linux}/bin/flock -n 9; then
@@ -73,8 +72,34 @@ let
   power-off = pkgs.writeShellScriptBin "power-off" ''
     exec ${pkgs.systemd}/bin/systemctl poweroff
   '';
-in
-{
+  figs = pkgs.writeShellScriptBin "figs" ''
+    dir="$(${pkgs.coreutils}/bin/realpath "''${1:-figures}")"
+
+    windows() {
+        hyprctl clients | ${pkgs.gnugrep}/bin/grep -c '^Window '
+    }
+
+    wait_for_window() {
+        for _ in {1..50}; do
+            if [ "$(windows)" -gt "$1" ]; then
+                return 0
+            fi
+            ${pkgs.coreutils}/bin/sleep 0.05
+        done
+    }
+
+    n="$(windows)"
+    kitty --detach --directory "$PWD"
+    wait_for_window "$n"
+
+    n="$(windows)"
+    ${pkgs.util-linux}/bin/setsid -f ${pkgs.imv}/bin/imv "$dir" >/dev/null 2>&1
+    wait_for_window "$n"
+
+    hyprctl dispatch 'hl.dsp.layout("mfact exact 0.6")' >/dev/null
+    hyprctl dispatch 'hl.dsp.layout("focusmaster master")' >/dev/null
+  '';
+in {
   home.packages = [
     wofi-open
     mic-led-sync
@@ -82,6 +107,7 @@ in
     osd-volume
     lock-screen
     power-off
+    figs
   ];
 
   home.file."Wallpapers".source = ../wallpapers;

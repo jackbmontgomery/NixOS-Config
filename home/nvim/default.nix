@@ -7,7 +7,6 @@
   imports = [
     ./keymaps.nix
     ./autocmds.nix
-    ./lsp.nix
     ./notes.nix
     ./languages.nix
   ];
@@ -28,6 +27,8 @@
         expandtab = true;
         showmode = false;
         breakindent = true;
+        ignorecase = true;
+        smartcase = true;
         conceallevel = 1;
         foldlevel = 99;
         foldenable = true;
@@ -58,6 +59,10 @@
       binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
+      };
+      terminal.toggleterm = {
+        enable = true;
+        direction = "float";
       };
       utility.oil-nvim.enable = true;
       navigation = {

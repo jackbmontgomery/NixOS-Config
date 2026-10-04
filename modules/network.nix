@@ -16,6 +16,7 @@ in {
   networking.networkmanager = {
     enable = true;
     wifi.powersave = true;
+    logLevel = "INFO";
 
     ensureProfiles.environmentFiles = ["/etc/nixos/secrets/eduroam.env"];
 
@@ -51,7 +52,7 @@ in {
         "802-1x" =
           uctEap
           // {
-            optional = true;
+            optional = false;
             auth-timeout = 10;
           };
         ipv4.method = "auto";

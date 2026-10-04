@@ -18,6 +18,7 @@ in {
 
   xdg.dataFile = {
     "applications/kitty-open.desktop" = hidden "kitty URL Launcher";
+    "applications/btop.desktop" = hidden "btop";
     "applications/org.freedesktop.Xwayland.desktop" = hidden "Xwayland";
     "applications/xdg-desktop-portal-gtk.desktop" = hidden "Portal";
     "applications/nixos-manual.desktop" = hidden "NixOS Manual";
