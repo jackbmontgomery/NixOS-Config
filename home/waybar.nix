@@ -54,14 +54,13 @@
         clock = {
           tooltip = false;
           interval = 60;
-          format = "{:%H:%M}";
-          format-alt = "{:%H:%M - %A %d %B}";
+          format = "{:%H:%M - %A %d %B}";
         };
 
         wireplumber = {
           tooltip = false;
           scroll-step = 5;
-          format = "{icon}  {volume}%";
+          format = "{icon}   {volume}%";
           format-muted = "󰝟 Muted";
           format-icons = [
             ""
@@ -85,7 +84,7 @@
         backlight = {
           tooltip = false;
           #device = "amdgpu_bl1";
-          format = "󰃠 {percent}%";
+          format = "󰃠  {percent}%";
           scroll-step = 5;
         };
 
@@ -96,12 +95,12 @@
 
         memory = {
           interval = 2;
-          format = "  {}%";
-          format-alt = "  {used} GiB";
+          format = "   {}%";
+          format-alt = "   {used} GiB";
         };
 
         "custom/network" = {
-          exec = ''${pkgs.bash}/bin/bash -c 'if [ "$(${pkgs.networkmanager}/bin/nmcli -t -f WIFI g)" = "disabled" ]; then echo "󰖪 off"; else ssid=$(${pkgs.networkmanager}/bin/nmcli -t -f TYPE,STATE,CONNECTION dev status | grep "^wifi:connected:" | cut -d: -f3- | head -n1); if [ -n "$ssid" ] && [ "$ssid" != "--" ]; then echo "󱚽 $ssid"; else echo "󰖩 on"; fi; fi' '';
+          exec = ''${pkgs.bash}/bin/bash -c 'if [ "$(${pkgs.networkmanager}/bin/nmcli -t -f WIFI g)" = "disabled" ]; then echo "󰖪  off"; else ssid=$(${pkgs.networkmanager}/bin/nmcli -t -f TYPE,STATE,CONNECTION dev status | grep "^wifi:connected:" | cut -d: -f3- | head -n1); if [ -n "$ssid" ] && [ "$ssid" != "--" ]; then echo "󱚽  $ssid"; else echo "󰖩  on"; fi; fi' '';
           interval = 3;
           tooltip = false;
           return-type = "text";
@@ -110,7 +109,7 @@
         };
 
         "custom/bluetooth" = {
-          exec = ''${pkgs.bash}/bin/bash -c 'if ${pkgs.util-linux}/bin/rfkill list bluetooth | grep -q "Soft blocked: yes"; then echo "󰂲 off"; else dev=$(${pkgs.bluez}/bin/bluetoothctl devices Connected | cut -d" " -f3- | head -n1); if [ -n "$dev" ]; then echo "󰂱 $dev"; else echo ""; fi; fi' '';
+          exec = ''${pkgs.bash}/bin/bash -c 'if ${pkgs.util-linux}/bin/rfkill list bluetooth | grep -q "Soft blocked: yes"; then echo "󰂲  off"; else dev=$(${pkgs.bluez}/bin/bluetoothctl devices Connected | cut -d" " -f3- | head -n1); if [ -n "$dev" ]; then echo "󰂱  $dev"; else echo " "; fi; fi' '';
           interval = 3;
           tooltip = false;
           return-type = "text";

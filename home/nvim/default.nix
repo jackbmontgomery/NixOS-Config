@@ -9,7 +9,10 @@
     ./autocmds.nix
     ./notes.nix
     ./languages.nix
+    ./utility.nix
+    ./statusline.nix
   ];
+  stylix.targets.neovim.enable = false;
   programs.nvf = {
     enable = true;
     settings.vim = {
@@ -47,12 +50,25 @@
           friendly-snippets.enable = true;
         };
       };
-      telescope.enable = true;
-      statusline = {
-        lualine = {
-          enable = true;
+      telescope = {
+        enable = true;
+        mappings = {
+          lspDefinitions = "<leader>lgd";
+          lspTypeDefinitions = "<leader>lgt";
+          lspImplementations = "<leader>lgi";
+          lspReferences = "<leader>lgr";
+          lspDocumentSymbols = "<leader>lS";
+          lspWorkspaceSymbols = "<leader>lws";
         };
       };
+      extraPlugins.vim-tpipeline.package = pkgs.vimPlugins.vim-tpipeline;
+
+      globals = {
+        tpipeline_autoembed = 0;
+        tpipeline_restore = 0;
+        tpipeline_cursormoved = 0;
+      };
+
       ui = {
         noice.enable = true;
       };
@@ -62,11 +78,21 @@
       };
       terminal.toggleterm = {
         enable = true;
-        direction = "float";
+        mappings.open = "<leader>tt";
+        setupOpts = {
+          direction = "float";
+        };
       };
-      utility.oil-nvim.enable = true;
       navigation = {
-        harpoon.enable = true;
+        harpoon = {
+          enable = true;
+          mappings = {
+            file1 = "<leader>1";
+            file2 = "<leader>2";
+            file3 = "<leader>3";
+            file4 = "<leader>4";
+          };
+        };
       };
       dashboard.dashboard-nvim.enable = true;
     };

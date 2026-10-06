@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   services.dunst = {
     enable = true;
     package = pkgs.dunst;
@@ -48,10 +47,9 @@
         text_icon_padding = 6;
         icon_theme = "Colloid-Dark";
 
-        icon_path =
-          let
-            iconDir = "${pkgs.colloid-icon-theme}/share/icons/Colloid-Dark";
-          in
+        icon_path = let
+          iconDir = "${pkgs.colloid-icon-theme}/share/icons/Colloid-Dark";
+        in
           lib.mkForce "${iconDir}/status/16:${iconDir}/status/24:${iconDir}/apps/scalable:${iconDir}/apps/22:${iconDir}/devices/16:${iconDir}/devices/24:${iconDir}/actions/16:${iconDir}/actions/24";
       };
     };

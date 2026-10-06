@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   gtk = {
     enable = true;
 
@@ -38,8 +41,5 @@
     };
   };
 
-  # Extra font package for CJK
-  home.packages = [
-    pkgs.noto-fonts-cjk-sans
-  ];
+  fonts.fontconfig.enable = false;
 }

@@ -36,7 +36,6 @@
 
   home.packages = [
     pkgs.colloid-icon-theme
-    pkgs.poppins
     pkgs.pavucontrol
     pkgs.networkmanagerapplet
     pkgs.libnotify
@@ -48,6 +47,5 @@
     pkgs.uv
     pkgs.speedtest-go
     pkgs.imv
-    pkgs.claude-code
   ];
 }

@@ -6,6 +6,8 @@
 }: {
   stylix = {
     enable = true;
+
+    # base16Scheme = ../themes/bauhaus.yaml;
     image = ../wallpapers/night.jpg;
     polarity = "dark";
 
@@ -21,8 +23,8 @@
         name = "JetBrainsMono Nerd Font";
       };
       sansSerif = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.inter;
+        name = "Inter";
       };
       emoji = {
         package = pkgs.noto-fonts-color-emoji;

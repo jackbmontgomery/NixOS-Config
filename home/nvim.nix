@@ -7,9 +7,6 @@
   imports = [
     ./nvim/default.nix
   ];
-  programs.neovim = {
-    enable = true;
-  };
-
+  programs.neovim.enable = true;
   programs.nvf.enable = true;
 }

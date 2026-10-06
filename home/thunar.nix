@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   xdg.dataFile."xfce4/helpers/kitty.desktop".text = ''
     [Desktop Entry]
     Version=1.0

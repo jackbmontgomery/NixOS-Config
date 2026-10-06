@@ -2,7 +2,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  c = config.lib.stylix.colors.withHashtag;
+in {
   stylix.targets.tmux.enable = true;
 
   programs.tmux = {
@@ -48,12 +50,32 @@
       set -g renumber-windows on
 
       # Status bar layout
-      set-option -g status-position top
-      set -g status-justify centre
+      # absolute-centre keeps the window list from shifting as the embedded
+      # nvim statusline changes width.
+      set -g status-justify absolute-centre
 
-      # Reload config
+      set -g status-style bg=default
+      set -g status-left-length 99
+      set -g status-right-length 99
+      set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+      set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R) #S '
+
+      setw -g window-status-separator "  "
+      setw -g window-status-format "#[fg=${c.base03},bg=default]#W"
+      setw -g window-status-current-format "#[fg=${c.base0A},bg=default,bold]#W"
+      setw -g window-status-last-style "fg=${c.base04},bg=default"
+
+      set -g message-style "bg=default,fg=${c.base05}"
+      set -g message-command-style "bg=default,fg=${c.base05}"
+      set -g mode-style "bg=${c.base02},fg=${c.base05}"
+
+      set -g pane-border-style "fg=${c.base01},bg=default"
+      set -g pane-active-border-style "fg=${c.base0A},bg=default"
+
       unbind r
       bind r source-file ${config.xdg.configHome}/tmux/tmux.conf \; display "Config reloaded"
+
+      bind c new-window -c "#{pane_current_path}"
 
       # Copy mode
       bind-key -T copy-mode-vi 'v' send -X begin-selection
