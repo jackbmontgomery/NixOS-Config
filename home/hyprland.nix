@@ -39,8 +39,6 @@
 
         (bind "SUPER + Space" (exec "wofi-open"))
 
-        # (bind "SUPER + H" (exec "hyprpicker -a"))
-
         (bind "SUPER + ALT + L" (exec "lock-screen"))
 
         # Window management
@@ -83,7 +81,7 @@
         (bindo "XF86MonBrightnessDown" (exec "osd-brightness down") "{ locked = true, repeating = true }")
 
         # Multimedia keys
-        (bindo "PRINT" (exec "hyprshot -m output --clipboard-only") "{ locked = true }")
+        (bindo "SUPER + PRINT" (exec "hyprshot -m region -o ~/Screenshots") "{ locked = true }")
         (bindo "XF86SelectiveScreenshot" (exec "hyprshot -m region --clipboard-only") "{ locked = true }")
 
         (bindo "XF86AudioNext" (exec "playerctl next") "{ locked = true }")
@@ -98,9 +96,10 @@
       hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
       hl.env("QT_STYLE_OVERRIDE", "Fusion")
 
-      hl.monitor({ output = "HDMI-A-1", mode = "preferred", position = "0x0", scale = 1, transform = 0 })
-      hl.monitor({ output = "DP-1", mode = "1920x1080@165", position = "2560x-240", scale = 1, transform = 3 })
-      hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1, transform = 0, disabled = false })
+      -- Laptop panel is the only real output; externals mirror it.
+      hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1, transform = 0, disabled = false })
+      hl.monitor({ output = "HDMI-A-1", mode = "preferred", position = "auto", scale = 1, transform = 0, mirror = "eDP-1" })
+      hl.monitor({ output = "DP-1", mode = "preferred", position = "auto", scale = 1, transform = 0, mirror = "eDP-1" })
 
       hl.config({
           general =
@@ -123,6 +122,11 @@
       input = { kb_layout = "us", kb_variant = "", kb_model = "thinkpad", follow_mouse = 1, sensitivity = 0, natural_scroll = true, touchpad = { natural_scroll = true } }
       })
 
+      hl.device({
+          name = "synps/2-synaptics-touchpad",
+          sensitivity = 0.6,
+      })
+
       hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
       hl.curve("snappyReturn", { type = "bezier", points = { {0.4, 0.9}, {0.6, 1.0} } })
       hl.curve("bounce", { type = "bezier", points = { {0.4, 0.9}, {0.6, 1.0} } })
@@ -142,6 +146,12 @@
       hl.window_rule({ name = "wifi-float", match = { class = "nm-connection-editor" }, float = true, size = "640 400", move = "1270 50" })
       hl.window_rule({ name = "bluetooth-float", match = { class = "blueman-manager" }, float = true, size = "640 400", move = "1270 50" })
       hl.window_rule({ name = "vol-float", match = { class = "org.pulseaudio.pavucontrol" }, float = true, size = "640 400", move = "1270 50" })
+
+      -- Workspace rules
+      hl.workspace_rule({ workspace = "1", monitor = "eDP-1", default = true })
+      hl.workspace_rule({ workspace = "2", monitor = "eDP-1" })
+      hl.workspace_rule({ workspace = "3", monitor = "eDP-1" })
+      hl.workspace_rule({ workspace = "4", monitor = "eDP-1" })
 
       -- Layer rules
       hl.layer_rule({

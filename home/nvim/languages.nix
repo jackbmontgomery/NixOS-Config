@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.nvf.settings.vim = {
     lsp = {
       enable = true;
@@ -6,22 +10,45 @@
       presets = {
         harper.enable = true;
       };
-      # Everything keeps its stock <leader>l* key. The six requests that can
-      # return more than one result are unbound here and re-bound to those same
-      # keys as Telescope pickers in default.nix, so the keys you press do not
-      # change -- only the UI that answers them does.
       mappings = {
-        goToDefinition = null; # -> telescope, <leader>lgd
-        goToType = null; # -> telescope, <leader>lgt
-        listImplementations = null; # -> telescope, <leader>lgi
-        listReferences = null; # -> telescope, <leader>lgr
-        listDocumentSymbols = null; # -> telescope, <leader>lS
-        listWorkspaceSymbols = null; # -> telescope, <leader>lws
+        goToDefinition = null;
+        goToType = null;
+        listImplementations = null;
+        listReferences = null;
+        listDocumentSymbols = null;
+        listWorkspaceSymbols = null;
       };
       servers = {
         basedpyright.settings.basedpyright.analysis = {
           typeCheckingMode = "standard";
         };
+
+        julia-languageserver.cmd = lib.mkForce (lib.generators.mkLuaInline ''
+          {
+            '${lib.meta.getExe (pkgs.julia_111.withPackages ["LanguageServer"])}',
+            '--startup-file=no',
+            '--history-file=no',
+            '-e',
+            [[
+              using LanguageServer
+
+              project_path = dirname(something(
+                  Base.current_project(),
+                  Base.load_path_expand("@v#.#"),
+              ))
+              depot_path = ""
+              symserver_store_path = joinpath(homedir(), ".cache", "julia-symbolcache")
+              mkpath(symserver_store_path)
+
+              @info "Running language server" VERSION pwd() project_path symserver_store_path
+              server = LanguageServer.LanguageServerInstance(
+                  stdin, stdout, project_path, depot_path, nothing, symserver_store_path,
+              )
+              server.runlinter = true
+              run(server)
+            ]],
+          }
+        '');
       };
     };
     languages = {
@@ -30,10 +57,17 @@
       enableExtraDiagnostics = true;
 
       nix.enable = true;
+      julia.enable = true;
       markdown = {
         enable = true;
         lsp.servers = ["rumdl"];
         format.type = ["rumdl"];
+        extensions.render-markdown-nvim = {
+          enable = true;
+          setupOpts = {
+            latex.enabled = false;
+          };
+        };
       };
       lua.enable = true;
       python = {

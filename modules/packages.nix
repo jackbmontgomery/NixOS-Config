@@ -21,6 +21,9 @@
       wl-clipboard
       vim
       tcpdump
+      julia-bin
+      zathura
+      claude-code
     ];
   };
   nixpkgs.config.allowUnfree = true;

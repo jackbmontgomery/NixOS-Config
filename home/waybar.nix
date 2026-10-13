@@ -18,10 +18,7 @@
         margin-top = 5;
         margin-left = 5;
         margin-right = 5;
-        output = [
-          "eDP-1"
-          "HDMI-A-1"
-        ];
+        output = ["eDP-1"];
         modules-left = [
           "cpu"
           "memory"
@@ -41,13 +38,13 @@
 
         "hyprland/workspaces" = {
           disable-scroll = false;
-          all-outputs = true;
+          all-outputs = false;
           format = "{icon}";
           format-icons = {
             default = "●";
           };
           persistent-workspaces = {
-            "*" = 3;
+            "eDP-1" = [1 2 3];
           };
         };
 

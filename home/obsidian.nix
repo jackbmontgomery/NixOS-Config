@@ -11,6 +11,7 @@
       app = {
         alwaysUpdateLinks = true;
         spellcheck = true;
+        vimMode = true;
       };
 
       corePlugins = [
@@ -23,9 +24,19 @@
         "page-preview"
         "properties"
         "tag-pane"
-        "templates"
+        {
+          name = "templates";
+          settings = {
+            folder = "Templates";
+            dateFormat = "DD-MMM-YYY";
+            timeFormat = "HH:mm";
+          };
+        }
         "word-count"
         "workspaces"
+        "slides"
+        "switcher"
+        "slash-command"
       ];
     };
 

@@ -61,7 +61,9 @@
           lspWorkspaceSymbols = "<leader>lws";
         };
       };
-      extraPlugins.vim-tpipeline.package = pkgs.vimPlugins.vim-tpipeline;
+      extraPlugins = {
+        vim-tpipeline.package = pkgs.vimPlugins.vim-tpipeline;
+      };
 
       globals = {
         tpipeline_autoembed = 0;

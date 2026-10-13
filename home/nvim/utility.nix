@@ -2,7 +2,6 @@
   programs.nvf.settings.vim.utility = {
     oil-nvim = {
       enable = true;
-      gitStatus.enable = true;
       setupOpts = lib.mkLuaInline ''
         (function()
           local function parse_output(proc)

@@ -34,30 +34,6 @@
       mode = "n";
       action = "<cmd>echo 'Use j to move!!'<CR>";
     }
-    # {
-    #   key = "<C-h>";
-    #   mode = "n";
-    #   action = "<C-w><C-h>";
-    #   desc = "Move focus to the left window";
-    # }
-    # {
-    #   key = "<C-l>";
-    #   mode = "n";
-    #   action = "<C-w><C-l>";
-    #   desc = "Move focus to the right window";
-    # }
-    # {
-    #   key = "<C-j>";
-    #   mode = "n";
-    #   action = "<C-w><C-j>";
-    #   desc = "Move focus to the lower window";
-    # }
-    # {
-    #   key = "<C-k>";
-    #   mode = "n";
-    #   action = "<C-w><C-k>";
-    #   desc = "Move focus to the upper window";
-    # }
     {
       key = "<leader>on";
       mode = "n";

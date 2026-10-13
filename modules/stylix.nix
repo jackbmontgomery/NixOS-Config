@@ -7,7 +7,7 @@
   stylix = {
     enable = true;
 
-    # base16Scheme = ../themes/bauhaus.yaml;
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
     image = ../wallpapers/night.jpg;
     polarity = "dark";
 
@@ -32,7 +32,7 @@
       };
       sizes = {
         terminal = 16;
-        applications = 14;
+        applications = 16;
         desktop = 16;
         popups = 16;
       };
