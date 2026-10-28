@@ -72,42 +72,28 @@
   power-off = pkgs.writeShellScriptBin "power-off" ''
     exec ${pkgs.systemd}/bin/systemctl poweroff
   '';
-  figs = pkgs.writeShellScriptBin "figs" ''
-    dir="$(${pkgs.coreutils}/bin/realpath "''${1:-figures}")"
-
-    windows() {
-        hyprctl clients | ${pkgs.gnugrep}/bin/grep -c '^Window '
-    }
-
-    wait_for_window() {
-        for _ in {1..50}; do
-            if [ "$(windows)" -gt "$1" ]; then
-                return 0
-            fi
-            ${pkgs.coreutils}/bin/sleep 0.05
-        done
-    }
-
-    n="$(windows)"
-    kitty --detach --directory "$PWD"
-    wait_for_window "$n"
-
-    n="$(windows)"
-    ${pkgs.util-linux}/bin/setsid -f ${pkgs.imv}/bin/imv "$dir" >/dev/null 2>&1
-    wait_for_window "$n"
-
-    hyprctl dispatch 'hl.dsp.layout("mfact exact 0.6")' >/dev/null
-    hyprctl dispatch 'hl.dsp.layout("focusmaster master")' >/dev/null
+  mo = pkgs.writeShellScriptBin "mo" ''
+    if [ "$#" -lt 1 ]; then
+        echo "usage: mo <notebook.py>" >&2
+        exit 1
+    fi
+    if [ ! -f "$1" ]; then
+        echo "mo: no such file: $1" >&2
+        exit 1
+    fi
+    file="$(${pkgs.coreutils}/bin/realpath "$1")"
+    dir="$(${pkgs.coreutils}/bin/dirname "$file")"
+    exec ${config.programs.vscode.package}/bin/code "$dir" "$file"
   '';
 in {
   home.packages = [
     wofi-open
+    mo
     mic-led-sync
     osd-brightness
     osd-volume
     lock-screen
     power-off
-    figs
   ];
 
   home.file."Wallpapers".source = ../wallpapers;

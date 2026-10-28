@@ -11,6 +11,8 @@
         harper.enable = true;
       };
       mappings = {
+        renameSymbol = "gn";
+        codeAction = "ga";
         goToDefinition = null;
         goToType = null;
         listImplementations = null;
@@ -22,10 +24,28 @@
         basedpyright.settings.basedpyright.analysis = {
           typeCheckingMode = "standard";
         };
+        texlab.settings.texlab = {
+          build = {
+            executable = "latexmk";
+            args = ["-pdf" "-interaction=nonstopmode" "-synctex=1" "%f"];
+            onSave = true;
+            forwardSearchAfter = true;
+          };
+          forwardSearch = {
+            executable = "zathura";
+            args = ["--synctex-forward" "%l:1:%f" "%p"];
+          };
+        };
+        harper = {
+          filetypes = ["markdown" "tex"];
+          settings."harper-ls" = {
+            dialect = "British";
+          };
+        };
 
         julia-languageserver.cmd = lib.mkForce (lib.generators.mkLuaInline ''
           {
-            '${lib.meta.getExe (pkgs.julia_111.withPackages ["LanguageServer"])}',
+            '${lib.meta.getExe (pkgs.julia-bin.withPackages ["LanguageServer"])}',
             '--startup-file=no',
             '--history-file=no',
             '-e',
@@ -58,6 +78,7 @@
 
       nix.enable = true;
       julia.enable = true;
+      tex.enable = true;
       markdown = {
         enable = true;
         lsp.servers = ["rumdl"];
@@ -95,6 +116,7 @@
     settings = {
       lint = {
         unfixable = ["F401"];
+        extend-ignore = ["F722"];
       };
     };
   };

@@ -44,7 +44,7 @@ in {
 
       wired-eduroam = {
         connection = {
-          id = "wired-eduroam";
+          id = "uct-network";
           type = "ethernet";
           autoconnect-priority = 100;
           autoconnect-retries = 3;

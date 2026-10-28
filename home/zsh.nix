@@ -62,6 +62,7 @@ in {
       # Python
       sp = "source .venv/bin/activate";
       py = "python3";
+      pdf = "zathura";
     };
   };
 }

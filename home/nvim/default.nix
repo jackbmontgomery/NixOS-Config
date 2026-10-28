@@ -11,8 +11,11 @@
     ./languages.nix
     ./utility.nix
     ./statusline.nix
+    # ./compline.nix
   ];
   stylix.targets.neovim.enable = false;
+  stylix.targets.nvf.enable = false;
+
   programs.nvf = {
     enable = true;
     settings.vim = {
@@ -36,6 +39,11 @@
         foldlevel = 99;
         foldenable = true;
       };
+      theme = {
+        enable = true;
+        name = "rose-pine";
+        style = "main";
+      };
       autopairs.nvim-autopairs.enable = true;
       diagnostics = {
         enable = true;
@@ -48,15 +56,31 @@
         blink-cmp = {
           enable = true;
           friendly-snippets.enable = true;
+          setupOpts = {
+            signature = {
+              enabled = true;
+              trigger.show_on_insert = true;
+              window = {
+                border = "rounded";
+                show_documentation = true;
+              };
+            };
+            completion.documentation = {
+              auto_show = true;
+              auto_show_delay_ms = 200;
+              window.border = "rounded";
+            };
+            completion.menu.border = "rounded";
+          };
         };
       };
       telescope = {
         enable = true;
         mappings = {
-          lspDefinitions = "<leader>lgd";
+          lspDefinitions = "gd";
           lspTypeDefinitions = "<leader>lgt";
           lspImplementations = "<leader>lgi";
-          lspReferences = "<leader>lgr";
+          lspReferences = "gr";
           lspDocumentSymbols = "<leader>lS";
           lspWorkspaceSymbols = "<leader>lws";
         };
@@ -70,6 +94,13 @@
         tpipeline_restore = 0;
         tpipeline_cursormoved = 0;
       };
+
+      # oil.nvim only registers its "icon" column when an icon provider is
+      # loadable (mini.icons or nvim-web-devicons -- see oil/util.lua
+      # get_icon_provider). Without one, columns = { "icon" } silently renders
+      # nothing. nvim-web-devicons needs no setup ordering, unlike mini.icons,
+      # which gates on _G.MiniIcons being set before oil.setup runs.
+      visuals.nvim-web-devicons.enable = true;
 
       ui = {
         noice.enable = true;
@@ -93,6 +124,7 @@
             file2 = "<leader>2";
             file3 = "<leader>3";
             file4 = "<leader>4";
+            listMarks = "<leader>hm";
           };
         };
       };

@@ -33,6 +33,8 @@ in {
     "applications/thunar-bulk-rename.desktop" = hidden "Bulk Rename";
     "applications/thunar-settings.desktop" = hidden "Thunar Preferences";
     "applications/thunar-volman-settings.desktop" = hidden "Removable Drives and Media";
+    "applications/julia.desktop" = hidden "Julia";
+    "applications/org.pwmt.zathura.desktop" = hidden "Zathura";
 
     # Qt theming tools (pulled in by Stylix)
     "applications/kvantummanager.desktop" = hidden "Kvantum Manager";

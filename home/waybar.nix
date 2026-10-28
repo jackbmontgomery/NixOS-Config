@@ -18,7 +18,6 @@
         margin-top = 5;
         margin-left = 5;
         margin-right = 5;
-        output = ["eDP-1"];
         modules-left = [
           "cpu"
           "memory"
@@ -44,7 +43,7 @@
             default = "●";
           };
           persistent-workspaces = {
-            "eDP-1" = [1 2 3];
+            "*" = [1 2 3 4];
           };
         };
 
@@ -287,7 +286,7 @@
       #custom-bluetooth
           {
               color: @color1;
-              border-radius: 0;
+              border-radius: 0 0.5rem 0.5rem 0;
               padding-left: 0.35rem;
               padding-right: 0.6rem;
           }

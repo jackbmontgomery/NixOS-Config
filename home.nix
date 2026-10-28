@@ -15,7 +15,6 @@
     ./home/scripts.nix
     ./home/wofi.nix
     ./home/desktop-entries.nix
-    ./home/awww.nix
     ./home/hypridle.nix
     ./home/hyprlock.nix
     ./home/dunst.nix
@@ -24,6 +23,10 @@
     ./home/git.nix
     ./home/obsidian.nix
     ./home/tmux.nix
+    ./home/tex.nix
+    ./home/zathura.nix
+    ./home/vscode.nix
+    ./home/pluto.nix
     ./home/nvim
   ];
 
@@ -39,13 +42,20 @@
     pkgs.pavucontrol
     pkgs.networkmanagerapplet
     pkgs.libnotify
-    pkgs.awww
     pkgs.hyprshot
     pkgs.hyprpicker
     pkgs.zotero
     pkgs.ripgrep
-    pkgs.uv
     pkgs.speedtest-go
-    pkgs.imv
+    pkgs.claude-code
   ];
+  programs.imv = {
+    enable = true;
+    settings = {
+      options = {
+        overlay = true;
+        overlay_text = "[\${imv_current_index}/\${imv_file_count}] \${imv_current_file##*/}";
+      };
+    };
+  };
 }

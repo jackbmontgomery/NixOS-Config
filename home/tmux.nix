@@ -11,7 +11,6 @@ in {
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "screen-256color";
-
     baseIndex = 1;
     escapeTime = 0;
     historyLimit = 1000000;
@@ -76,6 +75,10 @@ in {
       bind r source-file ${config.xdg.configHome}/tmux/tmux.conf \; display "Config reloaded"
 
       bind c new-window -c "#{pane_current_path}"
+
+      bind j select-window -t 1
+      bind k select-window -t 2
+      bind l select-window -t 3
 
       # Copy mode
       bind-key -T copy-mode-vi 'v' send -X begin-selection

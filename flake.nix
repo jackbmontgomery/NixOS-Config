@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +43,16 @@
         ./hosts/thinkpad/default.nix
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
+        {
+          nixpkgs.overlays = [
+            (final: prev: {
+              unstable = import inputs.nixpkgs-unstable {
+                inherit (prev.stdenv.hostPlatform) system;
+                inherit (prev.config) allowUnfree;
+              };
+            })
+          ];
+        }
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
