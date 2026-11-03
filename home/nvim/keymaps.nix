@@ -1,9 +1,4 @@
 {lib, ...}: {
-  # nvim 0.12 ships grn/gra/grx/grr/gri/grt by default. Any of those makes a
-  # bare `gr` ambiguous, so it would only fire after `timeoutlen`. Rename and
-  # references now live on gn/gr (languages.nix, default.nix); code action,
-  # implementations and type definitions keep their <leader>l* bindings. Only
-  # grx (codelens) loses its key, which nothing here was using.
   programs.nvf.settings.vim.luaConfigRC.dropDefaultLspMaps = {
     data = ''
       for _, lhs in ipairs({"grn", "gra", "grx", "grr", "gri", "grt"}) do
@@ -50,6 +45,16 @@
       key = "<down>";
       mode = "n";
       action = "<cmd>echo 'Use j to move!!'<CR>";
+    }
+    {
+      key = "<leader>rf";
+      mode = "n";
+      action = "<cmd>IronFocus<CR>";
+    }
+    {
+      key = "<leader>rh";
+      mode = "n";
+      action = "<cmd>IronHide<CR>";
     }
     {
       key = "<leader>on";

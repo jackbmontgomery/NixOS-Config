@@ -134,30 +134,15 @@
           return nil
       end
 
-      -- Settle time before re-focusing, same order as the 300ms hotplug
-      -- debounce below: the connect has to finish picking its own workspace
-      -- first, otherwise it lands after us and wins.
       local RESTORE_DELAY_MS = 300
 
-      -- Enabling a panel is a *fresh* monitor connect, and Hyprland hands a
-      -- fresh monitor the lowest unused workspace id
-      -- (CMonitor::findAvailableDefaultWS) unless a workspace rule names a
-      -- default for it. With 1-3 in use that landed us on a newly created,
-      -- empty workspace 4 after every HDMI unplug. Pinning a default would
-      -- need a `monitor =` workspace rule, which this config deliberately
-      -- avoids, so instead remember the workspace in use across the switch
-      -- and focus it again once the panel is up.
       local function apply()
           local ext = external_present()
           if ext == nil then return end
 
-          -- Kept as a name, not a workspace object: an empty workspace is
-          -- destroyed during the switch and the object would expire with it.
           local ok, prev = pcall(function() return hl.get_active_workspace().name end)
           laptop(ext)
 
-          -- The special workspace is toggled, not focused; restoring it as a
-          -- regular workspace would be wrong.
           if not ok or type(prev) ~= "string" or prev:match("^special") then return end
 
           hl.timer(function()
@@ -191,11 +176,6 @@
           blur = { enabled = true, size = 3, passes = 2, brightness = 0.6, contrast = 1.0, noise = 0, xray = false, popups = false }
       },
 
-      -- *_enables_dpms: last-resort escape hatch. If anything ever leaves the
-      -- panel powered off (a bad dpms dispatch, a resume race), a keypress or
-      -- mouse move brings it back instead of needing a hard power cycle.
-      misc = { force_default_wallpaper = 0, disable_hyprland_logo = true,
-               key_press_enables_dpms = true, mouse_move_enables_dpms = true },
       input = { kb_layout = "us", kb_variant = "", kb_model = "thinkpad", follow_mouse = 1, sensitivity = 0, natural_scroll = true, touchpad = { natural_scroll = true } }
       })
 
@@ -223,6 +203,21 @@
       hl.window_rule({ name = "wifi-float", match = { class = "nm-connection-editor" }, float = true, size = "640 400", move = "1270 50" })
       hl.window_rule({ name = "bluetooth-float", match = { class = "blueman-manager" }, float = true, size = "640 400", move = "1270 50" })
       hl.window_rule({ name = "vol-float", match = { class = "org.pulseaudio.pavucontrol" }, float = true, size = "640 400", move = "1270 50" })
+      -- Plot windows (home/plots.nix), floated and centred so a figure appears
+      -- over the terminal and closing it hands focus straight back rather than
+      -- reshuffling the tiling layout.
+      --
+      -- gksqt is GR's window, so that one covers Plots.jl.
+      --
+      -- matplotlib's TkAgg window is NOT class "Tk": _backend_tk.py creates it
+      -- as `tk.Tk(className="matplotlib")`, and Tk capitalises className into
+      -- the WM_CLASS class field. Both spellings are matched because which one
+      -- Hyprland reports depends on whether it reads res_name or res_class.
+      -- Check with `hyprctl clients` while a figure is open if it ever stops
+      -- matching; `title = "^Figure [0-9]+$"` is the fallback, since those
+      -- windows are titled "Figure 1", "Figure 2" and so on.
+      hl.window_rule({ name = "gr-float", match = { class = "[Gg]ksqt" }, float = true, size = "1100 800", center = true })
+      hl.window_rule({ name = "mpl-float", match = { class = "[Mm]atplotlib" }, float = true, size = "1100 800", center = true })
 
       -- Workspace rules
       -- Deliberately no `monitor =` pins: only one display is active at a

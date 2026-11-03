@@ -1,8 +1,11 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
-}: {
+}: let
+  jetls = import ./jetls.nix {inherit pkgs inputs;};
+in {
   programs.nvf.settings.vim = {
     lsp = {
       enable = true;
@@ -43,41 +46,30 @@
           };
         };
 
-        julia-languageserver.cmd = lib.mkForce (lib.generators.mkLuaInline ''
-          {
-            '${lib.meta.getExe (pkgs.julia-bin.withPackages ["LanguageServer"])}',
-            '--startup-file=no',
-            '--history-file=no',
-            '-e',
-            [[
-              using LanguageServer
+        fatou = {
+          cmd = [(lib.meta.getExe pkgs.unstable.fatou) "lsp"];
+          filetypes = ["julia"];
+          root_markers = ["Project.toml" "JuliaProject.toml" ".git"];
+        };
 
-              project_path = dirname(something(
-                  Base.current_project(),
-                  Base.load_path_expand("@v#.#"),
-              ))
-              depot_path = ""
-              symserver_store_path = joinpath(homedir(), ".cache", "julia-symbolcache")
-              mkpath(symserver_store_path)
-
-              @info "Running language server" VERSION pwd() project_path symserver_store_path
-              server = LanguageServer.LanguageServerInstance(
-                  stdin, stdout, project_path, depot_path, nothing, symserver_store_path,
-              )
-              server.runlinter = true
-              run(server)
-            ]],
-          }
-        '');
+        jetls = {
+          cmd = [(lib.meta.getExe jetls) "serve"];
+          filetypes = ["julia"];
+          root_markers = ["Project.toml" "JuliaProject.toml"];
+        };
       };
     };
+
     languages = {
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
 
       nix.enable = true;
-      julia.enable = true;
+      julia = {
+        enable = true;
+        lsp.enable = false;
+      };
       tex.enable = true;
       markdown = {
         enable = true;
@@ -99,6 +91,27 @@
       };
     };
 
+    luaConfigRC.jetls = ''
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil or client.name ~= "jetls" then
+            return
+          end
+
+          client.server_capabilities.documentFormattingProvider = nil
+          client.server_capabilities.documentRangeFormattingProvider = nil
+
+          local inner = client.supports_method
+          client.supports_method = function(self, method, ...)
+            if method == "textDocument/formatting" or method == "textDocument/rangeFormatting" then
+              return false
+            end
+            return inner(self, method, ...)
+          end
+        end,
+      })
+    '';
     formatter.conform-nvim.setupOpts.formatters.rumdl.append_args = [
       "--config"
       ''global.flavor = "obsidian"''

@@ -21,6 +21,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # JETLS is not in nixpkgs, and upstream only ships an imperative install
+    # (`Pkg.Apps.add` into ~/.julia/bin). This flake resolves it through
+    # julia.withPackages instead, so sources, project, depot and precompile
+    # caches all live in the store and ~/.julia is left alone. It uses
+    # import-from-derivation, so evaluating this config can trigger Julia
+    # builds mid-eval. Bumping the JETLS release means bumping this input.
+    jetls-nix = {
+      url = "github:L3MON4D3/jetls-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #
+    # Live again: home/nvim/languages.nix consumes it for the inferred-type
+    # hover that neither fatou nor LanguageServer.jl can produce. The
+    # import-from-derivation cost noted above is real and is being
+    # paid deliberately -- `nix flake check` and plain evaluation can now
+    # trigger a Julia build.
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {

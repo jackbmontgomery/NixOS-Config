@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./keymaps.nix
+    ./iron.nix
     ./autocmds.nix
     ./notes.nix
     ./languages.nix

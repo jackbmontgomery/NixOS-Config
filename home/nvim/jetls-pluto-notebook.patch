@@ -1,0 +1,43 @@
+Teach JETLS's notebook support about Pluto notebooks as the VSCode Pluto
+extension (juliapluto-pankgeorg.advanced-vscode-extension) presents them.
+
+JETLS registers `notebookDocument/sync` for notebookType "jupyter-notebook"
+only, so a client never syncs cells of any other notebook type and JETLS
+serves nothing in them. The Pluto extension registers notebookType
+"pluto-notebook" (contributes.notebooks in its package.json) with code cells
+at languageId "julia" (`new NotebookCellData(..., "julia")` in its
+deserializer) -- exactly the shape the added selector item matches. Nothing
+downstream of the selector is Jupyter-specific: notebookType is stored on
+NotebookInfo (types.jl:229, set at notebook.jl:192) and never branched on.
+
+Deliberately NOT included: widening the URI-only `is_notebook_uri(uri::URI)`
+check from `.ipynb` to also match `.pluto.jl`. It looks like the natural
+companion -- a `.pluto.jl` open as a notebook is also a path JETLS picks up
+as an ordinary script, so it can be analysed twice -- but it regresses the
+nvim case. `is_abandoned_analysis_target` (analysis/full-analysis.jl:728)
+reads `if (is_notebook_uri(uri) || ...) return !is_notebook_uri(state, uri)`,
+and a `.pluto.jl` opened as a plain text buffer satisfies the widened URI
+check while being absent from `notebook_cache`, so analysis is abandoned for
+a file that currently works. `.ipynb` is safe there only because it is never
+opened as text. If double analysis does show up in VSCode, fix it at the call
+site in utils/server.jl, where `state` is in scope, not in the predicate.
+
+Caveat worth knowing: JETLS analyses a notebook's cells concatenated in file
+order, and Pluto's file order is presentation order, not reactive order.
+Measured against an out-of-order notebook opened as a plain file, cross-cell
+go-to-definition still resolved and no diagnostics were reported, so this is
+less severe than it sounds -- but it is not nothing.
+
+--- a/vendor/JETLSCore/src/notebook.jl
++++ b/vendor/JETLSCore/src/notebook.jl
+@@ -9,6 +9,10 @@
+         NotebookDocumentSyncOptionsNotebookSelectorItem(;
+             notebook = "jupyter-notebook",
+             cells = NotebookDocumentSyncOptionsNotebookSelectorCellsItem[
++                NotebookDocumentSyncOptionsNotebookSelectorCellsItem(; language = "julia")]),
++        NotebookDocumentSyncOptionsNotebookSelectorItem(;
++            notebook = "pluto-notebook",
++            cells = NotebookDocumentSyncOptionsNotebookSelectorCellsItem[
+                 NotebookDocumentSyncOptionsNotebookSelectorCellsItem(; language = "julia")])]
+ 
+ function notebook_document_sync_options()

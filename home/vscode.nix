@@ -20,6 +20,33 @@
       sha256 = "1270vx0q6xjbl59pbhrjvp90iba2w1zmccwdk0cq8knnrg6d68xf";
     };
   };
+
+  ruff-marimo = pkgs.vscode-extensions.charliermarsh.ruff.overrideAttrs (old: {
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        substituteInPlace "$out/share/vscode/extensions/charliermarsh.ruff/dist/extension.js" \
+          --replace-fail \
+            '{scheme:"vscode-notebook-cell",language:"python"}' \
+            '{scheme:"vscode-notebook-cell",language:"python"},{scheme:"vscode-notebook",language:"mo-python"},{scheme:"vscode-notebook-cell",language:"mo-python"}'
+      '';
+  });
+
+  basedpyright-marimo = pkgs.vscode-extensions.detachhead.basedpyright.overrideAttrs (old: {
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        ext="$out/share/vscode/extensions/detachhead.basedpyright"
+        substituteInPlace "$ext/dist/extension.js" \
+          --replace-fail \
+            '{notebook:"*",language:"python"}' \
+            '{notebook:"*",language:"python"},{notebook:"*",language:"mo-python"}'
+        substituteInPlace "$ext/dist/server.js" \
+          --replace-fail \
+            'notebookSelector:[{notebook:{scheme:"file",notebookType:"jupyter-notebook"},cells:[{language:"python"}]}]' \
+            'notebookSelector:[{notebook:{scheme:"file",notebookType:"jupyter-notebook"},cells:[{language:"python"}]},{notebook:{scheme:"file",notebookType:"marimo-notebook"},cells:[{language:"mo-python"},{language:"python"}]}]'
+      '';
+  });
 in {
   xdg.configFile."marimo/marimo.toml".source = tomlFormat.generate "marimo.toml" {
     runtime = {
@@ -53,14 +80,6 @@ in {
     ai.enabled = false;
   };
 
-  # marimo hands ty the interpreter ms-python reports, which is not the project
-  # venv; a ty config outranks that and `.venv` resolves per-project.
-  xdg.configFile."ty/ty.toml".source = tomlFormat.generate "ty.toml" {
-    environment.python = ".venv";
-  };
-
-  # Copied in rather than symlinked, so VSCode can write settings it needs to
-  # persist. Nix re-asserts this content on every rebuild: UI changes are lost.
   home.file."${config.xdg.configHome}/Code/User/settings.json".enable = lib.mkForce false;
 
   home.activation.vscodeWritableSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -76,11 +95,10 @@ in {
 
     profiles.default = {
       extensions =
-        [marimo-vscode]
+        [marimo-vscode basedpyright-marimo ruff-marimo]
         ++ (with pkgs.vscode-extensions; [
           mvllow.rose-pine
           ms-python.python
-          charliermarsh.ruff
           vscodevim.vim
         ]);
 
@@ -115,11 +133,15 @@ in {
         "python.languageServer" = "None";
 
         "marimo.telemetry" = false;
-        "marimo.uv.path" = lib.getExe pkgs.uv;
+        "marimo.uv.path" = lib.getExe config.programs.uv.package;
+        "marimo.disableManagedLanguageFeatures" = true;
+        "[mo-python]"."editor.defaultFormatter" = "charliermarsh.ruff";
+
         "marimo.lsp.server" = "python";
-        # unstable: marimo requires ruff >= 0.16.0 and ty >= 0.0.63.
         "marimo.ruff.path" = lib.getExe pkgs.unstable.ruff;
-        "marimo.ty.path" = lib.getExe pkgs.unstable.ty;
+
+        "basedpyright.importStrategy" = "useBundled";
+        "basedpyright.analysis.typeCheckingMode" = "standard";
 
         "chat.disableAIFeatures" = true;
         "github.copilot.enable"."*" = false;

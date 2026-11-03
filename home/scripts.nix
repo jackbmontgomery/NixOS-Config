@@ -73,17 +73,51 @@
     exec ${pkgs.systemd}/bin/systemctl poweroff
   '';
   mo = pkgs.writeShellScriptBin "mo" ''
+    set -euo pipefail
     if [ "$#" -lt 1 ]; then
         echo "usage: mo <notebook.py>" >&2
         exit 1
     fi
-    if [ ! -f "$1" ]; then
-        echo "mo: no such file: $1" >&2
-        exit 1
-    fi
-    file="$(${pkgs.coreutils}/bin/realpath "$1")"
+    case "$1" in
+        *.py) ;;
+        *)
+            echo "mo: name must end in .py" >&2
+            exit 1
+            ;;
+    esac
+    file="$(${pkgs.coreutils}/bin/realpath -m "$1")"
     dir="$(${pkgs.coreutils}/bin/dirname "$file")"
-    exec ${config.programs.vscode.package}/bin/code "$dir" "$file"
+
+    project=""
+    probe="$dir"
+    while [ "$probe" != "/" ]; do
+        if [ -f "$probe/pyproject.toml" ]; then
+            project="$probe"
+            break
+        fi
+        probe="$(${pkgs.coreutils}/bin/dirname "$probe")"
+    done
+
+    ${pkgs.coreutils}/bin/mkdir -p "$dir"
+    if [ -z "$project" ]; then
+        (cd "$dir" && ${lib.getExe config.programs.uv.package} init --vcs none --bare --quiet)
+        project="$dir"
+        echo "mo: created uv project $project"
+    fi
+    if [ ! -d "$project/.venv" ]; then
+        (cd "$project" && ${lib.getExe config.programs.uv.package} venv --quiet)
+        echo "mo: created $project/.venv"
+    fi
+
+    if [ ! -s "$file" ]; then
+        {
+            ${pkgs.coreutils}/bin/printf -- 'import marimo\n\napp = marimo.App()\n\n\n'
+            ${pkgs.coreutils}/bin/printf -- '@app.cell\ndef _():\n    return\n\n\n'
+            ${pkgs.coreutils}/bin/printf -- 'if __name__ == "__main__":\n    app.run()\n'
+        } > "$file"
+        echo "mo: scaffolded $file"
+    fi
+    exec ${config.programs.vscode.package}/bin/code "$project" "$file"
   '';
 in {
   home.packages = [
