@@ -6,7 +6,8 @@
 }: {
   imports = [
     ./keymaps.nix
-    ./iron.nix
+    # ./iron.nix
+    ./smuggler.nix
     ./autocmds.nix
     ./notes.nix
     ./languages.nix

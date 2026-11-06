@@ -46,16 +46,22 @@
       mode = "n";
       action = "<cmd>echo 'Use j to move!!'<CR>";
     }
-    {
-      key = "<leader>rf";
-      mode = "n";
-      action = "<cmd>IronFocus<CR>";
-    }
-    {
-      key = "<leader>rh";
-      mode = "n";
-      action = "<cmd>IronHide<CR>";
-    }
+    # IronFocus / IronHide went with ./iron.nix, and would now map to commands
+    # that do not exist. <leader>rr in smuggler.nix covers the focus case: it
+    # launches the tmux pane when there is none and attaches the buffer when
+    # there is. Nothing replaces IronHide -- the REPL is a tmux pane now, not
+    # an nvim window, and vim-tmux-navigator's C-h/C-l already cross between
+    # them.
+    # {
+    #   key = "<leader>rf";
+    #   mode = "n";
+    #   action = "<cmd>IronFocus<CR>";
+    # }
+    # {
+    #   key = "<leader>rh";
+    #   mode = "n";
+    #   action = "<cmd>IronHide<CR>";
+    # }
     {
       key = "<leader>on";
       mode = "n";

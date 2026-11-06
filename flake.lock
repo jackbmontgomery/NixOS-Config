@@ -339,6 +339,26 @@
         "type": "github"
       }
     },
+    "obsidian-plugins": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770753851,
+        "narHash": "sha256-0FtmTKNKa8imXQYLJi+uKf0zOS5WmsIhTVW00+zKx1w=",
+        "owner": "cjavad",
+        "repo": "nixpille-obsidian-community-plugins",
+        "rev": "e98d37b2404143e876b6f795448d744df27b1dfc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cjavad",
+        "repo": "nixpille-obsidian-community-plugins",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -346,6 +366,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvf": "nvf",
+        "obsidian-plugins": "obsidian-plugins",
         "stylix": "stylix",
         "zen-browser": "zen-browser"
       }

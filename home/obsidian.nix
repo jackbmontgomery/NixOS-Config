@@ -11,7 +11,7 @@
       app = {
         alwaysUpdateLinks = true;
         spellcheck = true;
-        vimMode = true;
+        vimMode = false;
       };
 
       corePlugins = [
@@ -37,6 +37,10 @@
         "slides"
         "switcher"
         "slash-command"
+        "sync"
+      ];
+      communityPlugins = with pkgs.obsidianPlugins; [
+        vim-motions
       ];
     };
 
@@ -45,4 +49,10 @@
       target = "Obsidian";
     };
   };
+
+  home.file."Obsidian/.obsidian.init.lua".text = ''
+    vim.g.mapleader = " "
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+  '';
 }

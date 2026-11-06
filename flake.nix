@@ -21,22 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # JETLS is not in nixpkgs, and upstream only ships an imperative install
-    # (`Pkg.Apps.add` into ~/.julia/bin). This flake resolves it through
-    # julia.withPackages instead, so sources, project, depot and precompile
-    # caches all live in the store and ~/.julia is left alone. It uses
-    # import-from-derivation, so evaluating this config can trigger Julia
-    # builds mid-eval. Bumping the JETLS release means bumping this input.
+    obsidian-plugins = {
+      url = "github:cjavad/nixpille-obsidian-community-plugins";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     jetls-nix = {
       url = "github:L3MON4D3/jetls-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #
-    # Live again: home/nvim/languages.nix consumes it for the inferred-type
-    # hover that neither fatou nor LanguageServer.jl can produce. The
-    # import-from-derivation cost noted above is real and is being
-    # paid deliberately -- `nix flake check` and plain evaluation can now
-    # trigger a Julia build.
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -68,15 +61,29 @@
                 inherit (prev.config) allowUnfree;
               };
             })
+            inputs.obsidian-plugins.overlays.default
+            (final: prev: {
+              obsidianPlugins =
+                prev.obsidianPlugins
+                // {
+                  vim-motions = inputs.obsidian-plugins.lib.mkPlugin prev {
+                    owner = "saberzero1";
+                    repo = "motions";
+                    version = "1.5.1";
+                    hash = "sha256-B04zbE5wyHbHE1/XNfTYs8eT/Pf2u8+nDpzQZKealhc=";
+                  };
+                };
+            })
           ];
         }
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.sharedModules = [nvf.homeManagerModules.default];
-          home-manager.users.jbm = ./home.nix;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {inherit inputs;};
+            sharedModules = [nvf.homeManagerModules.default];
+            users.jbm = ./home.nix;
+          };
         }
       ];
     };

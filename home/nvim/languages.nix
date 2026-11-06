@@ -16,6 +16,8 @@ in {
       mappings = {
         renameSymbol = "gn";
         codeAction = "ga";
+        hover = "gh";
+        openDiagnosticFloat = "ge";
         goToDefinition = null;
         goToType = null;
         listImplementations = null;
