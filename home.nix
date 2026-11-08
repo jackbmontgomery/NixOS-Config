@@ -48,6 +48,9 @@
     pkgs.zotero
     pkgs.ripgrep
     pkgs.speedtest-go
+    pkgs.rustup
+    pkgs.gcc
+    pkgs.claude-code
   ];
   programs.imv = {
     enable = true;

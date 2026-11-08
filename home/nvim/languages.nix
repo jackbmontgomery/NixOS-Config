@@ -85,6 +85,7 @@ in {
         };
       };
       lua.enable = true;
+      rust.enable = true;
       python = {
         enable = true;
         format.type = ["ruff" "ruff-fix"];
